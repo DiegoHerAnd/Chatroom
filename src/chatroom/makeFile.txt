@@ -1,0 +1,24 @@
+# ─── Makefile ──────────────────────────────────────────────────────────────────
+# Compila el servidor y el cliente por separado.
+# Uso:
+#   make           → compila todo
+#   make server    → solo el servidor
+#   make client    → solo el cliente
+#   make clean     → elimina los binarios
+
+CC     = gcc
+CFLAGS = -Wall -Wextra -g
+LIBS   = -lpthread   # necesitamos la librería de hilos
+
+.PHONY: all server client clean
+
+all: server client
+
+server: server.c common.h
+	$(CC) $(CFLAGS) -o server server.c $(LIBS)
+
+client: client.c common.h
+	$(CC) $(CFLAGS) -o client client.c $(LIBS)
+
+clean:
+	rm -f server client
